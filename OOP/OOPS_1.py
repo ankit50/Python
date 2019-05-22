@@ -18,9 +18,10 @@ class Employee:
         print("SALARY: {}".format(self.salary))
 
 
-employee = Employee("Ankit", "Kharel", 23, "100k")
-employee.empDetails()
-employee.sum()
+if __name__ == " __main__ ":
+    employee = Employee("Ankit", "Kharel", 23, "100k")
+    employee.empDetails()
+    employee.sum()
 
 
 
