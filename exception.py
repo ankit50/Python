@@ -1,12 +1,15 @@
-def division(a, b):
-	c=a/b
-	print("{} divide by {} is:{}".format(a,b,c))
+def getint(message):
+	while True:
+		try:
+			number = int(input(message))
+			return number
+		except ValueError:
+			print("Invalid number entered")
 
-num1 = int(input("ENTER FIRST NUMBER:"))
-num2 = int(input("ENTER SECOND NUMBER:"))
+num1 = getint("Enter First Number:")
+num2 = getint("Enter Second Number:")
+
 try:
-	division(num1,num2)
-
+	print("{} divided by {} is {}".format(num1, num2, num1/num2))
 except ZeroDivisionError:
-	print("ERR")
-print("Progam terminated")
+	print("You cant divide by Zero:")
