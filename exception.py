@@ -13,3 +13,7 @@ try:
 	print("{} divided by {} is {}".format(num1, num2, num1/num2))
 except ZeroDivisionError:
 	print("You cant divide by Zero:")
+else:
+	print("Sccessfully performed the operation!!!")
+finally:
+	print("Exception handling was stuides!!")
