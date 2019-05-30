@@ -19,15 +19,19 @@ def viewRecord():
 		query = 'SELECT *FROM personal_records WHERE "ID" = %s'
 		cursor.execute(query, (ID,))
 		details = cursor.fetchall()
-		for row in details:
-			print("---------------------------------------")
-			print("ID:{}".format(row[ 0 ]))
-			print("Student Name:{} {}".format(row[ 1 ], row[ 2 ]))
-			print("Phone:{}".format(row[ 3 ]))
-			print("Gender:{}".format(row[ 4 ]))
-			print("Address:{}".format(row[ 5 ]))
+		if not details:
+			print("Id doesn't exist")
+		else:
+			for row in details:
+				print("---------------------------------------")
+				print("ID:{}".format(row[ 0 ]))
+				print("Student Name:{} {}".format(row[ 1 ], row[ 2 ]))
+				print("Phone:{}".format(row[ 3 ]))
+				print("Gender:{}".format(row[ 4 ]))
+				print("Address:{}".format(row[ 5 ]))
+
 	except Exception:
-		print("Id value not Found In Database.Please Enter A Valid Id Number.")
+		print("Errror!!!")
 	finally:
 		cursor.close()
 		conn.close()
@@ -75,18 +79,31 @@ def editRecord():
 			recordsToUpdate = (Id, fname, lname, phone, gen, add, ID)
 			editQuery = 'UPDATE personal_records SET "ID"=%s, "firstName"=%s, "lastName"=%s, "Phone"=%s, "Gender"=%s, "Address"=%s WHERE "ID"=%s'
 			cursor.execute(editQuery, recordsToUpdate )
-			print("Record Updated Succesfully!!!")
+			print("Record Updated Successfully!!!")
 			conn.commit()
 	except Exception:
-		print("Error")
+		print("Error!!!")
 	finally:
 		cursor.close()
 		conn.close()
+def deleteRecord():
+	try:
+		cursor, conn = connection()
+		Id = int(input("Enter The Id:"))
+		deleteQuery = 'DELETE FROM personal_records WHERE "ID"=%s'
+		cursor.execute(deleteQuery, (Id,))
+		print("Successfully Deleted!")
+		conn.commit()
+		cursor.close()
+		conn.close()
+
+	except Exception:
+		print("Error!!!!")
 
 if __name__=="__main__":
 	while True:
 		print("---------------------------------------")
-		print("1.View Record\n2.Add Record\n3.Edit\n4.Exit")
+		print("1.View Record\n2.Add Record\n3.Edit\n4.Delete Record\n5.Exit")
 		Choice = int(input("Enter Your Choice:"))
 		if Choice == 1:
 			#Fetching Row From Database Using ID
@@ -97,5 +114,10 @@ if __name__=="__main__":
 
 		elif Choice == 3:
 			editRecord()
+
 		elif Choice == 4:
+			deleteRecord()
+		elif Choice == 5:
 			break
+		else:
+			print("Input Valid Choice!")
